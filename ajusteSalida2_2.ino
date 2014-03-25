@@ -13,10 +13,10 @@ const uint8_t VALOR_R_FIJA=100; //Valor de 3 resistencias fijas de 100k
 const int RTOTAL=VALOR_R_FIJA*4 + VALOR_R_VARIABLE;
 
 const uint8_t PIN_DERIVANDO=A0; //Objetivo, nunca por debajo de cero
-const uint8_t PIN_R1=A1; //Pin R1
-const uint8_t PIN_R2=A2; //Pin R2
-const uint8_t PIN_R3=A3; //Pin R3
-const uint8_t PIN_R4=A4; //Pin R4
+const uint8_t PIN_R1=A0; //Pin R1
+const uint8_t PIN_R2=A1; //Pin R2
+const uint8_t PIN_R3=A2; //Pin R3
+const uint8_t PIN_R4=A3; //Pin R4
 
 boolean estaDerivando = false;
 boolean r1 = true;
@@ -62,9 +62,16 @@ void loop() {
   ajustarSalida( -200);  
   ajustarSalida( -230);  
   ajustarSalida( -250);  
+  ajustarSalida( -850);  
+  ajustarSalida( -950);  
+  ajustarSalida( -1250);  
+  ajustarSalida( -1350);  
   ajustarSalida( 20);  
   ajustarSalida( 200);  
   ajustarSalida( 200);  
+  ajustarSalida( 1500);  
+  ajustarSalida( 1500);  
+  ajustarSalida( 1500);  
   ajustarSalida( 1500);  
   ajustarSalida( 1500);  
   ajustarSalida( 200);  
@@ -119,7 +126,7 @@ int ajustarSalida( int watios){
   imprimirDatos(watios,incrementoEstimadoR);  
 
   //Delay para ver los valores en el emulador
-  delay(5000);
+  delay(1000);
 
   return incrementoEstimadoR; 
 }
@@ -253,45 +260,45 @@ int getValorRFija(){
 }
 void desactivarResistenciaFija4(){
   r4=false;
-  analogWrite(PIN_R4,LOW);
+  digitalWrite(PIN_R4,LOW);
 }  
 
 void desactivarResistenciaFija3(){
   r3=false;
-  analogWrite(PIN_R3,LOW);
+  digitalWrite(PIN_R3,LOW);
 }  
   
 void desactivarResistenciaFija2(){
   r2=false;
-  analogWrite(PIN_R2,LOW);
+  digitalWrite(PIN_R2,LOW);
 }  
 void desactivarResistenciaFija1(){
   r1=false;
-  analogWrite(PIN_R1,LOW);
+  digitalWrite(PIN_R1,LOW);
 }  
 
 void activarResistenciaFija4(){
   r4=true;
-  analogWrite(PIN_R4,HIGH);
+  digitalWrite(PIN_R4,HIGH);
 }  
 
 void activarResistenciaFija3(){
   r3=true;
-  analogWrite(PIN_R3,HIGH);
+  digitalWrite(PIN_R3,HIGH);
 }  
   
 void activarResistenciaFija2(){
   r2=true;
-  analogWrite(PIN_R2,HIGH);
+  digitalWrite(PIN_R2,HIGH);
 }  
 void activarResistenciaFija1(){
   r1=true;
-  analogWrite(PIN_R1,HIGH);
+  digitalWrite(PIN_R1,HIGH);
 }  
 
 void activarDerivacion(){
   estaDerivando=true;
-  analogWrite(PIN_DERIVANDO,HIGH);
+  digitalWrite(PIN_DERIVANDO,HIGH);
 
   Serial.println("ACTIVO DERIVACION");
 
@@ -299,7 +306,7 @@ void activarDerivacion(){
 
 void desactivarDerivacion(){
   estaDerivando=false;
-  analogWrite(PIN_DERIVANDO,LOW);
+  digitalWrite(PIN_DERIVANDO,LOW);
   //Resistencia variable a 100
   setValorActualRVariable(VALOR_R_VARIABLE);
   
